@@ -1,21 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
 import { Routes, Route } from 'react-router-dom';
-
-import Todos from './components/Todos';
+import Todos from './components/ReadTodos';
 import TodoProvider from './context/TodoProvider';
 import CreateTodo from './components/CreateTodo';
-import EditTodo from './components/EditTodo';
+import EditTodo from './components/UpdateTodo';
+import DeleteTodo from './components/DeleteTodo';
 
 function App() {
   return (
     <div className="App">
       <TodoProvider>
-      <img src={logo} className="App-logo" alt="logo" />
+
         <Routes>
           <Route exact path="/" element={<Todos />} />
           <Route exact path="/create" element={<CreateTodo />} />
           <Route exact path="/edit/:todo" element={<EditTodo />} />
+          <Route exact path="/delete/:todo" element={<DeleteTodo />} />
         </Routes>
         </TodoProvider>
     </div>

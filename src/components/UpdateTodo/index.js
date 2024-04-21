@@ -1,14 +1,20 @@
-import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import { TodoContext } from "../../context/TodoProvider";
+import React, { useContext, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import Form from '../Form'
+import { TodoContext } from '../../context/TodoProvider'
 
-const CreateTodo = () => {
+const EditTodo = () => {
+  const {todo} = useParams()
   const { todos, setTodos } = useContext(TodoContext);
-  const [inputValue, setInputValue] = useState();
+  const [inputValue, setInputValue] = useState(todo);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const newTodos = [...todos, inputValue];
+    const index = todos.indexOf(todo);
+    let newTodos = todos.filter((elem) => elem !== todo);
+    newTodos.splice(index, 0, inputValue);
+
     setTodos(newTodos);
     setInputValue("");
     localStorage.setItem("todos1", JSON.stringify(newTodos));
@@ -17,10 +23,13 @@ const CreateTodo = () => {
     setInputValue(event.target.value);
   };
 
+
+
   return (
+
     <div>
       <Link to={`/`}>Back</Link>
-      <h1>CreateTodo</h1>
+      <h1>    EditTodo {todo}</h1>
       <form onSubmit={handleSubmit}>
         <input
           onChange={handleChange}
@@ -30,8 +39,9 @@ const CreateTodo = () => {
         />
       </form>
       {todos?.join(",")}
-    </div>
-  );
-};
+  
+      </div>
+  )
+}
 
-export default CreateTodo;
+export default EditTodo
