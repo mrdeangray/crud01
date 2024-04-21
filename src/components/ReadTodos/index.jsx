@@ -3,6 +3,7 @@ import { TodoContext } from "../../context/TodoProvider";
 import { Link } from "react-router-dom";
 import "./read-todos-styles.css";
 import logo from "../../images/logo.svg";
+import Todo from "../Todo";
 
 const Todos = () => {
   const { todos, setTodos } = useContext(TodoContext);
@@ -13,13 +14,7 @@ const Todos = () => {
       <h1> Todos CRUD-01</h1>
 
       {todos.map((todo) => {
-        return (
-          <div>
-            {todo}
-            <Link to={`/edit/${todo}`}>edit</Link>
-            <Link to={`/delete/${todo}`}>delete</Link>
-          </div>
-        );
+        return <Todo todo={todo} />;
       })}
       <Link to={`/create`}>
         <button>Create Todo</button>
